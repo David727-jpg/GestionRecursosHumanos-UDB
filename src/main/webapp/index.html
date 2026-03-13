@@ -17,10 +17,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Nuestro CSS personalizado -->
     <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="css/estilos.css" type="text/css">
-    <link rel="stylesheet" href="css/estilos.css" type="text/css"/>
-
-
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -45,17 +41,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="EmpleadoServlet">
                             <i class="fas fa-user-tie me-1"></i>Empleados
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="DepartamentoServlet">
                             <i class="fas fa-building me-1"></i>Departamentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="ContratacionServlet">
                             <i class="fas fa-file-contract me-1"></i>Contrataciones
                         </a>
                     </li>
@@ -142,7 +138,7 @@
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-card">
+                <div class="feature-card" onclick="window.location.href='EmpleadoServlet'">
                     <div class="feature-icon">
                         <i class="fas fa-user-tie"></i>
                     </div>
@@ -151,14 +147,14 @@
                         Registra y administra la información personal y laboral de todos los 
                         empleados de la Universidad Don Bosco.
                     </p>
-                    <a href="#" class="btn-feature">
+                    <a href="EmpleadoServlet" class="btn-feature">
                         <i class="fas fa-arrow-right me-2"></i>Acceder
                     </a>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-card">
+                <div class="feature-card" onclick="window.location.href='DepartamentoServlet'">
                     <div class="feature-icon">
                         <i class="fas fa-building"></i>
                     </div>
@@ -167,14 +163,14 @@
                         Organiza y administra los diferentes departamentos académicos y 
                         administrativos de la universidad.
                     </p>
-                    <a href="#" class="btn-feature">
+                    <a href="DepartamentoServlet" class="btn-feature">
                         <i class="fas fa-arrow-right me-2"></i>Acceder
                     </a>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="feature-card">
+                <div class="feature-card" onclick="window.location.href='ContratacionServlet'">
                     <div class="feature-icon">
                         <i class="fas fa-file-contract"></i>
                     </div>
@@ -183,14 +179,14 @@
                         Controla todo el proceso de contratación, incluyendo fechas, salarios 
                         y estados de cada empleado.
                     </p>
-                    <a href="#" class="btn-feature">
+                    <a href="ContratacionServlet" class="btn-feature">
                         <i class="fas fa-arrow-right me-2"></i>Acceder
                     </a>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
-                <div class="feature-card">
+                <div class="feature-card" onclick="window.location.href='TipoContratacionServlet'">
                     <div class="feature-icon">
                         <i class="fas fa-tag"></i>
                     </div>
@@ -199,14 +195,14 @@
                         Configura los diferentes tipos de contratación (permanente, temporal, 
                         por proyecto, etc.).
                     </p>
-                    <a href="#" class="btn-feature">
+                    <a href="TipoContratacionServlet" class="btn-feature">
                         <i class="fas fa-arrow-right me-2"></i>Acceder
                     </a>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
-                <div class="feature-card">
+                <div class="feature-card" onclick="window.location.href='ReportesServlet'">
                     <div class="feature-icon">
                         <i class="fas fa-chart-bar"></i>
                     </div>
@@ -233,7 +229,7 @@
                 ¿Necesitas realizar una contratación urgente? Utiliza nuestro asistente rápido
                 para agilizar el proceso.
             </p>
-            <a href="#" class="btn-quick-action">
+            <a href="ContratacionServlet?action=nuevo" class="btn-quick-action">
                 <i class="fas fa-magic me-2"></i>Nueva Contratación Rápida
             </a>
         </div>
@@ -255,8 +251,9 @@
                     <ul class="list-unstyled">
                         <li><a href="index.html"><i class="fas fa-chevron-right me-2"></i>Inicio</a></li>
                         <li><a href="CargoServlet"><i class="fas fa-chevron-right me-2"></i>Cargos</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Empleados</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Departamentos</a></li>
+                        <li><a href="EmpleadoServlet"><i class="fas fa-chevron-right me-2"></i>Empleados</a></li>
+                        <li><a href="DepartamentoServlet"><i class="fas fa-chevron-right me-2"></i>Departamentos</a></li>
+                        <li><a href="ContratacionServlet"><i class="fas fa-chevron-right me-2"></i>Contrataciones</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
