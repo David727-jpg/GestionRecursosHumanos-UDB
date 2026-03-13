@@ -1,0 +1,264 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package Controlador;  // CORREGIDO: Mayúscula
+
+import DataAccess.EmpleadoDAO;
+import DataAccess.DepartamentoDAO;
+import com.udb.modelo.Empleado;
+import com.udb.modelo.Departamento;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+
+@WebServlet(name = "EmpleadoServlet", urlPatterns = {"/EmpleadoServlet"})
+public class EmpleadoServlet extends HttpServlet {
+
+    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+    DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String action = request.getParameter("action");
+        
+        if (action == null || action.equals("listar")) {
+            listarEmpleados(request, response);
+        } else if (action.equals("nuevo")) {
+            mostrarFormularioRegistro(request, response);
+        } else if (action.equals("guardar")) {
+            guardarEmpleado(request, response);
+        } else if (action.equals("editar")) {
+            mostrarFormularioEdicion(request, response);
+        } else if (action.equals("actualizar")) {
+            actualizarEmpleado(request, response);
+        } else if (action.equals("eliminar")) {
+            eliminarEmpleado(request, response);
+        } else {
+            listarEmpleados(request, response);
+        }
+    }
+    
+    private void listarEmpleados(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        List<Empleado> lista = empleadoDAO.listar();
+        request.setAttribute("empleados", lista);
+        request.getRequestDispatcher("/listarEmpleados.jsp").forward(request, response);
+    }
+    
+    private void mostrarFormularioRegistro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        // Cargar departamentos para el combo box
+        List<Departamento> departamentos = departamentoDAO.listar();
+        request.setAttribute("departamentos", departamentos);
+        
+        request.getRequestDispatcher("/registrarEmpleado.jsp").forward(request, response);
+    }
+    
+    private void guardarEmpleado(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        try {
+            // Obtener datos del formulario
+            String dui = request.getParameter("dui");
+            String nombre = request.getParameter("nombre");
+            String usuario = request.getParameter("usuario");
+            String telefono = request.getParameter("telefono");
+            String correo = request.getParameter("correo");
+            String fechaStr = request.getParameter("fechaNacimiento");
+            String idDepartamentoStr = request.getParameter("idDepartamento");
+            
+            // Validaciones básicas
+            if (nombre == null || nombre.trim().isEmpty() || dui == null || dui.trim().isEmpty()) {
+                request.setAttribute("error", "El nombre y DUI son obligatorios");
+                mostrarFormularioRegistro(request, response);
+                return;
+            }
+            
+            // Convertir fecha
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNacimiento = sdf.parse(fechaStr);
+            
+            // Crear objeto Empleado
+            Empleado emp = new Empleado();
+            emp.setDuiEmpleado(dui);
+            emp.setNombreEmpleado(nombre);
+            emp.setUsuarioEmpleado(usuario);
+            emp.setTelefonoEmpleado(telefono);
+            emp.setCorreoEmpleado(correo);
+            emp.setFechadenacimientoEmpleado(fechaNacimiento);
+            
+            // Asignar departamento si se seleccionó
+            if (idDepartamentoStr != null && !idDepartamentoStr.trim().isEmpty()) {
+                int idDepartamento = Integer.parseInt(idDepartamentoStr);
+                Departamento depto = new Departamento();
+                depto.setIdDepartamento(idDepartamento);
+                emp.setDepartamento(depto);
+            }
+            
+            boolean resultado = empleadoDAO.agregar(emp);
+            
+            if (resultado) {
+                request.setAttribute("mensaje", "Empleado guardado exitosamente");
+            } else {
+                request.setAttribute("error", "No se pudo guardar el empleado");
+            }
+            
+            listarEmpleados(request, response);
+            
+        } catch (Exception e) {
+            System.out.println("Error en guardarEmpleado: " + e.getMessage());
+            request.setAttribute("error", "Error al guardar: " + e.getMessage());
+            mostrarFormularioRegistro(request, response);
+        }
+    }
+    
+    private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        try {
+            String idParam = request.getParameter("id");
+            
+            if (idParam == null || idParam.trim().isEmpty()) {
+                request.setAttribute("error", "ID no válido");
+                listarEmpleados(request, response);
+                return;
+            }
+            
+            int id = Integer.parseInt(idParam);
+            
+            // MEJORADO: Usar método buscarPorId
+            Empleado empleadoEncontrado = empleadoDAO.buscarPorId(id);
+            
+            if (empleadoEncontrado != null) {
+                // Cargar departamentos para el combo box
+                List<Departamento> departamentos = departamentoDAO.listar();
+                request.setAttribute("departamentos", departamentos);
+                request.setAttribute("empleado", empleadoEncontrado);
+                request.getRequestDispatcher("/editarEmpleado.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error", "Empleado no encontrado");
+                listarEmpleados(request, response);
+            }
+            
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "ID no válido");
+            listarEmpleados(request, response);
+        }
+    }
+    
+    private void actualizarEmpleado(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        try {
+            String idParam = request.getParameter("idEmpleado");
+            String dui = request.getParameter("dui");
+            String nombre = request.getParameter("nombre");
+            String usuario = request.getParameter("usuario");
+            String telefono = request.getParameter("telefono");
+            String correo = request.getParameter("correo");
+            String fechaStr = request.getParameter("fechaNacimiento");
+            String idDepartamentoStr = request.getParameter("idDepartamento");
+            
+            if (idParam == null || idParam.trim().isEmpty() || 
+                nombre == null || nombre.trim().isEmpty()) {
+                
+                request.setAttribute("error", "Datos incompletos");
+                listarEmpleados(request, response);
+                return;
+            }
+            
+            int id = Integer.parseInt(idParam);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNacimiento = sdf.parse(fechaStr);
+            
+            Empleado emp = new Empleado();
+            emp.setIdEmpleado(id);
+            emp.setDuiEmpleado(dui);
+            emp.setNombreEmpleado(nombre);
+            emp.setUsuarioEmpleado(usuario);
+            emp.setTelefonoEmpleado(telefono);
+            emp.setCorreoEmpleado(correo);
+            emp.setFechadenacimientoEmpleado(fechaNacimiento);
+            
+            // Asignar departamento si se seleccionó
+            if (idDepartamentoStr != null && !idDepartamentoStr.trim().isEmpty()) {
+                int idDepartamento = Integer.parseInt(idDepartamentoStr);
+                Departamento depto = new Departamento();
+                depto.setIdDepartamento(idDepartamento);
+                emp.setDepartamento(depto);
+            }
+            
+            boolean resultado = empleadoDAO.actualizar(emp);
+            
+            if (resultado) {
+                request.setAttribute("mensaje", "Empleado actualizado exitosamente");
+            } else {
+                request.setAttribute("error", "No se pudo actualizar el empleado");
+            }
+            
+            listarEmpleados(request, response);
+            
+        } catch (ServletException | IOException | NumberFormatException | ParseException e) {
+            System.out.println("Error en actualizarEmpleado: " + e.getMessage());
+            request.setAttribute("error", "Error al actualizar: " + e.getMessage());
+            listarEmpleados(request, response);
+        }
+    }
+    
+    private void eliminarEmpleado(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        try {
+            String idParam = request.getParameter("id");
+            
+            if (idParam == null || idParam.trim().isEmpty()) {
+                request.setAttribute("error", "ID no válido");
+                listarEmpleados(request, response);
+                return;
+            }
+            
+            int id = Integer.parseInt(idParam);
+            boolean resultado = empleadoDAO.eliminar(id);
+            
+            if (resultado) {
+                request.setAttribute("mensaje", "Empleado eliminado exitosamente");
+            } else {
+                request.setAttribute("error", "No se pudo eliminar el empleado. Puede tener contrataciones asociadas.");
+            }
+            
+            listarEmpleados(request, response);
+            
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "ID no válido");
+            listarEmpleados(request, response);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Servlet para gestionar Empleados";
+    }
+}
