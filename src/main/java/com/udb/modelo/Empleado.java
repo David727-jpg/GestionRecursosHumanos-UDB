@@ -14,23 +14,14 @@ public class Empleado {
 
     public Empleado() {
     }
-   
-    
+
     private int idEmpleado;
-    
     private String duiEmpleado;
-    
     private String nombreEmpleado;
-    
     private String usuarioEmpleado;
-    
     private String telefonoEmpleado;
-    
     private String correoEmpleado;
-    
     private Date fechadenacimientoEmpleado;
-    
-    private Departamento departamento;
 
     public int getIdEmpleado() {
         return idEmpleado;
@@ -88,15 +79,8 @@ public class Empleado {
         this.fechadenacimientoEmpleado = fechadenacimientoEmpleado;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
-
-    public Empleado(int idEmpleado, String duiEmpleado, String nombreEmpleado, String usuarioEmpleado, String telefonoEmpleado, String correoEmpleado, Date fechadenacimientoEmpleado, Departamento departamento) {
+    public Empleado(int idEmpleado, String duiEmpleado, String nombreEmpleado, String usuarioEmpleado,
+            String telefonoEmpleado, String correoEmpleado, Date fechadenacimientoEmpleado, Departamento departamento) {
         this.idEmpleado = idEmpleado;
         this.duiEmpleado = duiEmpleado;
         this.nombreEmpleado = nombreEmpleado;
@@ -104,9 +88,5 @@ public class Empleado {
         this.telefonoEmpleado = telefonoEmpleado;
         this.correoEmpleado = correoEmpleado;
         this.fechadenacimientoEmpleado = fechadenacimientoEmpleado;
-        this.departamento = departamento;
     }
-    
-    
-    
 }

@@ -3,20 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package conexion;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 /**
  *
  * @author josed
  */
 public class Conexion {
-    
- // 1.  variables con los datos de XAMPP
-    private final String URL = "jdbc:mysql://localhost:3306/db_recursos_humanos";
+
+    // 1.  variables con los datos de XAMPP
+    private final String URL = "jdbc:mysql://localhost:3306/db_recursos_humanos?useUnicode=true&characterEncoding=UTF-8";
     private final String USER = "root";
-    private final String PASS = ""; 
-    
+    private final String PASS = "";
+
     private Connection con;
 
     // 2.  método para conectar
@@ -24,11 +26,11 @@ public class Conexion {
         try {
             // Cargar el driver 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            
+
             // Intentar establecer la conexión
             con = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("¡Conexión exitosa a la base de datos!");
-            
+
         } catch (ClassNotFoundException e) {
             System.out.println("Error: Falta el Driver de MySQL. " + e.getMessage());
         } catch (SQLException e) {
@@ -36,13 +38,20 @@ public class Conexion {
         }
         return con;
     }
+
     public static void main(String[] args) {
         Conexion prueba = new Conexion();
         prueba.getConnection();
     }
-}  
-    
-    
-    
-    
 
+    public void desconectar() {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+                System.out.println("Conexión cerrada.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar conexión: " + e.getMessage());
+        }
+    }
+}
