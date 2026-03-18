@@ -102,4 +102,32 @@ Conexion cn = new Conexion();
             return false;
         }
     }
+    public com.udb.modelo.Cargo buscarPorId(int id) {
+        com.udb.modelo.Cargo cargo = new com.udb.modelo.Cargo();
+        
+       
+        String sql = "SELECT * FROM cargo WHERE id_cargo = ?"; 
+        
+        try {
+            con = cn.getConnection(); 
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                
+                cargo.setIdCargo(rs.getInt("id_cargo"));
+                cargo.setCargo(rs.getString("nombre_cargo")); 
+                cargo.setDescripcionCargo(rs.getString("descripcion_cargo"));
+                cargo.setJefatura(rs.getBoolean("jefatura"));
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar cargo por ID: " + e.getMessage());
+        }
+        
+        return cargo;
+    }
+    
+    
 }
