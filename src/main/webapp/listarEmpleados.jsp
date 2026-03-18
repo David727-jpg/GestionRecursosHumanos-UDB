@@ -37,7 +37,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="CargoServlet">
+                                        <a class="nav-link" href="CargoServletRescate">
                                             <i class="fas fa-briefcase me-1"></i>Cargos
                                         </a>
                                     </li>
