@@ -78,8 +78,21 @@ public class EmpleadoDAO {
     }
 
     public List<Empleado> listar() {
+        return listar(false);
+    }
+
+    public List<Empleado> listar(boolean soloSinContratacion) {
         List<Empleado> lista = new ArrayList<>();
-        String sql = "SELECT * FROM empleado";
+        String sql;
+
+        if (soloSinContratacion) {
+            sql = "SELECT e.id_empleado, e.dui_empleado, e.nombre_empleado " +
+                  "FROM empleado e " +
+                  "LEFT JOIN contratacion c ON e.id_empleado = c.id_empleado " +
+                  "WHERE c.id_contratacion IS NULL";
+        } else {
+            sql = "SELECT * FROM empleado";
+        }
 
         try {
             con = cn.getConnection();
@@ -90,14 +103,17 @@ public class EmpleadoDAO {
                 Empleado emp = new Empleado();
 
                 emp.setIdEmpleado(rs.getInt("id_empleado"));
-                emp.setNombreEmpleado(rs.getString("nombre_empleado"));
                 emp.setDuiEmpleado(rs.getString("dui_empleado"));
-                emp.setUsuarioEmpleado(rs.getString("usuario_empleado"));
-                emp.setTelefonoEmpleado(rs.getString("telefono_empleado"));
-                emp.setCorreoEmpleado(rs.getString("correo_empleado"));
-                if (rs.getDate("fecha_nacimiento_empleado") != null) {
-                    emp.setFechadenacimientoEmpleado(
-                            new java.util.Date(rs.getDate("fecha_nacimiento_empleado").getTime()));
+                emp.setNombreEmpleado(rs.getString("nombre_empleado"));
+
+                if (!soloSinContratacion) {
+                    emp.setUsuarioEmpleado(rs.getString("usuario_empleado"));
+                    emp.setTelefonoEmpleado(rs.getString("telefono_empleado"));
+                    emp.setCorreoEmpleado(rs.getString("correo_empleado"));
+                    if (rs.getDate("fecha_nacimiento_empleado") != null) {
+                        emp.setFechadenacimientoEmpleado(
+                                new java.util.Date(rs.getDate("fecha_nacimiento_empleado").getTime()));
+                    }
                 }
 
                 lista.add(emp);
