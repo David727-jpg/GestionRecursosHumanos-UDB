@@ -42,6 +42,11 @@
                         <i class="fas fa-file-contract me-1"></i>Contrataciones
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= paginaActiva.equals("tiposContratacion") ? "active" : ""%>" href="TipoContratacionServlet">
+                        <i class="fas fa-list-alt me-1"></i>Tipos Contratación
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
