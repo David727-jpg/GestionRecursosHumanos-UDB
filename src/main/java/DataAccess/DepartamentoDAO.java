@@ -114,7 +114,30 @@ public class DepartamentoDAO {
             System.out.println("Error al actualizar: " + e.getMessage());
             return false;
         }
-    }  
+    }
+    
+    public Departamento obtenerPorId(int id) {
+        String sql = "SELECT * FROM departamento WHERE id_departamento = ?";
+        Departamento dep = null;
+        
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                dep = new Departamento();
+                dep.setIdDepartamento(rs.getInt("id_departamento"));
+                dep.setNombreDepartamento(rs.getString("nombre_departamento"));
+                dep.setDescripcionDepartamento(rs.getString("descripcion_departamento"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener departamento por ID: " + e.getMessage());
+        }
+        
+        return dep;
+    }
          
       public static void main(String[] args) {
         DepartamentoDAO dao = new DepartamentoDAO();
