@@ -5,7 +5,7 @@
 <c:set var="pageTitle" value="Cargos" scope="request" />
 <jsp:include page="includes/header.jsp" />
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <jsp:include page="includes/navbar.jsp">
         <jsp:param name="activePage" value="cargos" />
     </jsp:include>
@@ -82,6 +82,9 @@
         </div>
     </div>
 </main>
+
+<!-- Footer -->
+<jsp:include page="includes/footer.jsp" />
 
 <!-- Modal Confirmar Eliminación -->
 <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">

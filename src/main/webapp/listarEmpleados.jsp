@@ -6,12 +6,13 @@
 <c:set var="pageTitle" value="Empleados" scope="request" />
 <jsp:include page="includes/header.jsp" />
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+
     <jsp:include page="includes/navbar.jsp">
         <jsp:param name="activePage" value="empleados" />
     </jsp:include>
 
-    <div class="container mt-5">
+    <main class="container mt-5">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h3 class="text-center"><i class="fas fa-user-tie"></i> Lista de Empleados</h3>
@@ -98,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Modal Confirmar Eliminación -->
     <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel"
@@ -129,6 +130,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <jsp:include page="includes/footer.jsp" />
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

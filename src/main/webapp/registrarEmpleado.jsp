@@ -6,12 +6,13 @@
 <c:set var="pageTitle" value="Empleados" scope="request" />
 <jsp:include page="includes/header.jsp" />
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+
     <jsp:include page="includes/navbar.jsp">
         <jsp:param name="activePage" value="empleados" />
     </jsp:include>
 
-    <div class="container mt-5">
+    <main class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -106,7 +107,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <jsp:include page="includes/footer.jsp" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/funciones.js"></script>

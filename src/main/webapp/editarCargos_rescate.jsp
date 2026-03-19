@@ -5,13 +5,13 @@
 <c:set var="pageTitle" value="Cargos" scope="request" />
 <jsp:include page="includes/header.jsp" />
 
-<body >
+<body class="d-flex flex-column min-vh-100">
 
     <jsp:include page="includes/navbar.jsp">
         <jsp:param name="activePage" value="cargos" />
     </jsp:include>
 
-    <div class="container mt-5">
+    <main class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow">
@@ -51,7 +51,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <jsp:include page="includes/footer.jsp" />
 </body>
 
 </html>

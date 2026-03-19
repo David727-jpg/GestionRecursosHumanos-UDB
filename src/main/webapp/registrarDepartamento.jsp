@@ -10,7 +10,8 @@
 <c:set var="pageTitle" value="Departamentos" scope="request" />
 <jsp:include page="includes/header.jsp" />
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+
     <jsp:include page="includes/navbar.jsp">
         <jsp:param name="activePage" value="departamentos" />
     </jsp:include>
@@ -79,6 +80,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <jsp:include page="includes/footer.jsp" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
