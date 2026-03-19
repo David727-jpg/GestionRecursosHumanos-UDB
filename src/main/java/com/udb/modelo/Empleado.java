@@ -80,7 +80,7 @@ public class Empleado {
     }
 
     public Empleado(int idEmpleado, String duiEmpleado, String nombreEmpleado, String usuarioEmpleado,
-            String telefonoEmpleado, String correoEmpleado, Date fechadenacimientoEmpleado, Departamento departamento) {
+            String telefonoEmpleado, String correoEmpleado, Date fechadenacimientoEmpleado) {
         this.idEmpleado = idEmpleado;
         this.duiEmpleado = duiEmpleado;
         this.nombreEmpleado = nombreEmpleado;
