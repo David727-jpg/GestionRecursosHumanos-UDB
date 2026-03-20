@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import conexion.Conexion;
 import com.udb.modelo.Cargo;
+
 /**
  *
  * @author josed
@@ -20,7 +21,7 @@ Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
-    
+  
     // ================== AGREGAR ==================
     public boolean agregar(Cargo cargo) {
         String sql = "INSERT INTO cargo (nombre_cargo, descripcion_cargo, jefatura) VALUES (?, ?, ?)";
@@ -35,10 +36,12 @@ Conexion cn = new Conexion();
             
             ps.executeUpdate();
             return true;
-        } catch (Exception e) {
+} catch (Exception e) {
             System.out.println("Error al agregar cargo: " + e.getMessage());
             return false;
-        }
+} finally {
+    cn.desconectar();
+}
     }
     
     // ================== LISTAR ==================
@@ -86,6 +89,9 @@ Conexion cn = new Conexion();
             System.out.println("Error al actualizar cargo: " + e.getMessage());
             return false;
         }
+        finally {
+    cn.desconectar();
+}
     }
     
     // ================== ELIMINAR ==================
@@ -101,7 +107,11 @@ Conexion cn = new Conexion();
             System.out.println("Error al eliminar cargo: " + e.getMessage());
             return false;
         }
+        finally {
+    cn.desconectar();
+}
     }
+    
     public com.udb.modelo.Cargo buscarPorId(int id) {
         com.udb.modelo.Cargo cargo = new com.udb.modelo.Cargo();
         
@@ -125,6 +135,9 @@ Conexion cn = new Conexion();
         } catch (Exception e) {
             System.out.println("Error al buscar cargo por ID: " + e.getMessage());
         }
+        finally {
+    cn.desconectar();
+}
         
         return cargo;
     }
