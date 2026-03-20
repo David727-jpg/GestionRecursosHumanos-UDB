@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import com.udb.modelo.Departamento;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLIntegrityConstraintViolationException;
+
 
 /**
  *
