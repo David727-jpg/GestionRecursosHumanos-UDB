@@ -22,11 +22,7 @@ public class DepartamentoDAO {
    Connection con;
    PreparedStatement ps;
    ResultSet rs;
-   private String ultimoError = "";
-
-public String getUltimoError() {
-    return ultimoError;
-}
+ 
    public boolean agregar(Departamento dep) {
        
         String sql = "INSERT INTO departamento (nombre_departamento, descripcion_departamento) VALUES (?,?)";
@@ -94,9 +90,6 @@ public String getUltimoError() {
              
              ps.executeUpdate();
              return true;
-     } catch (SQLIntegrityConstraintViolationException e) {
-    ultimoError = "No se puede eliminar: el departamento tiene contrataciones activas";
-    return false;
          }catch(Exception e){
              System.out.println("Error al eliminar: " + e.getMessage());
              return false;
