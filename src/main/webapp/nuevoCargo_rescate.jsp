@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header bg-primary text-white">
                         <h3 class="mb-0"> Registrar Nuevo Cargo</h3>
                     </div>
                     <div class="card-body">
@@ -36,7 +36,7 @@
                             </div>
 
                             <div class="d-flex align-items-center justify-content-center gap-3">
-                                <button type="submit" class="btn btn-success fw-bold d-flex gap-2 align-items-center"><i class="fas fa-save"></i> Guardar Cargo</button>
+                                <button type="submit" class="btn btn-primary fw-bold d-flex gap-2 align-items-center"><i class="fas fa-save"></i> Guardar Cargo</button>
                                 <a href="CargoServletRescate?accion=listar"
                                    class="btn btn-secondary d-flex gap-2 align-items-center"><i class="fas fa-arrow-left"></i> Cancelar</a>
                             </div>
@@ -50,6 +50,8 @@
 
     <!-- Footer -->
     <jsp:include page="includes/footer.jsp" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </body>
 
 </html>

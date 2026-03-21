@@ -11,6 +11,7 @@ import com.udb.modelo.Departamento;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  *
  * @author josed
@@ -21,7 +22,7 @@ public class DepartamentoDAO {
    Connection con;
    PreparedStatement ps;
    ResultSet rs;
-   
+ 
    public boolean agregar(Departamento dep) {
        
         String sql = "INSERT INTO departamento (nombre_departamento, descripcion_departamento) VALUES (?,?)";
@@ -43,6 +44,9 @@ public class DepartamentoDAO {
             System.out.println("Error al guardar: " + e.getMessage());
             return false;
         }
+         finally {
+    cn.desconectar();
+}
    
 }
  
@@ -69,7 +73,9 @@ public class DepartamentoDAO {
             }
         } catch (Exception e) {
             System.out.println("Error al listar: " + e.getMessage());
-        }
+        } finally {
+    cn.desconectar();
+}
         return lista;
    }
         
@@ -84,11 +90,12 @@ public class DepartamentoDAO {
              
              ps.executeUpdate();
              return true;
-             
          }catch(Exception e){
              System.out.println("Error al eliminar: " + e.getMessage());
              return false;
              
+         } finally {
+    cn.desconectar();
          }
         }
          
@@ -113,6 +120,8 @@ public class DepartamentoDAO {
         } catch (Exception e) {
             System.out.println("Error al actualizar: " + e.getMessage());
             return false;
+        } finally {
+    cn.desconectar();
         }
     }
     
@@ -134,7 +143,9 @@ public class DepartamentoDAO {
             }
         } catch (Exception e) {
             System.out.println("Error al obtener departamento por ID: " + e.getMessage());
-        }
+        } finally {
+    cn.desconectar();
+}
         
         return dep;
     }
